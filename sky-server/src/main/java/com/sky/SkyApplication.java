@@ -3,11 +3,9 @@ package com.sky;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class SkyTakeOutApplication {
-
+@SpringBootApplication  // ✅ 必须有这个注解
+public class SkyApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SkyTakeOutApplication.class, args);
+        SpringApplication.run(SkyApplication.class, args);
     }
-
 }
