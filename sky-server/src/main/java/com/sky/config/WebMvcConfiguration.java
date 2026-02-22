@@ -1,7 +1,7 @@
 package com.sky.config;
 
-//import com.sky.interceptor.JwtTokenAdminInterceptor;
-//import com.sky.interceptor.JwtTokenUserInterceptor;
+import com.sky.interceptor.JwtTokenAdminInterceptor;
+import com.sky.interceptor.JwtTokenUserInterceptor;
 import com.sky.json.JacksonObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,26 +28,39 @@ import java.util.List;
 @Slf4j
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
-//    @Autowired
-//    private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
-//    @Autowired
-//    private JwtTokenUserInterceptor jwtTokenUserInterceptor;
+    @Autowired
+    private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
+    @Autowired
+    private JwtTokenUserInterceptor jwtTokenUserInterceptor;
 
     /**
      * 注册自定义拦截器
      *
      * @param registry
      */
-//    protected void addInterceptors(InterceptorRegistry registry) {
-//        log.info("开始注册自定义拦截器...");
-//        registry.addInterceptor(jwtTokenAdminInterceptor)
-//                .addPathPatterns("/admin/**")
-//                .excludePathPatterns("/admin/employee/login");
-//        registry.addInterceptor(jwtTokenUserInterceptor)
-//                .addPathPatterns("/user/**")
-//                .excludePathPatterns("/user/user/login")
-//                .excludePathPatterns("/user/shop/status");
-//    }
+    protected void addInterceptors(InterceptorRegistry registry) {
+        log.info("开始注册自定义拦截器...");
+        registry.addInterceptor(jwtTokenAdminInterceptor)
+                .addPathPatterns("/admin/**")
+                .excludePathPatterns(
+                        "/admin/employee/login",
+
+                        // ===== Swagger / Knife4j 放行（关键）=====
+                        "/doc.html",
+                        "/doc.html/**",
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/v2/api-docs",
+                        "/v2/api-docs/**",
+                        "/swagger-resources",
+                        "/swagger-resources/**",
+                        "/webjars/**"
+                );
+        registry.addInterceptor(jwtTokenUserInterceptor)
+                .addPathPatterns("/user/**")
+                .excludePathPatterns("/user/user/login")
+                .excludePathPatterns("/user/shop/status");
+    }
 
     /**
      * 通过knife4j生成接口文档
@@ -81,7 +94,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .groupName("用户端接口")
                 .apiInfo(apiInfo)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.sky.controller.user"))
+                .apis(RequestHandlerSelectors.basePackage("com.sky.controller"))
                 .paths(PathSelectors.any())
                 .build();
         return docket;
