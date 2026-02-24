@@ -7,10 +7,10 @@ sky:
     username: root
     password: hlpjzx2003
   alioss:
-    endpoint: oss-cn-beijing.aliyuncs.com
-    access-key-id: LTAI5tNigKunuDG7HdQVfurK
-    access-key-secret: B8rp5ijRAIoj2Db3dhGzTT5XG8sISv
-    bucket-name: sky-gong-out
+    endpoint: oss-cn-shanghai.aliyuncs.com
+    access-key-id: LTAI5tGn8HFc4a4KBafkRRDU
+    access-key-secret: wKvQv7eSDAiCMJwHnguNA3IGISvGbz
+    bucket-name: sky-take-out-jzx
   redis:
     host: localhost
     port: 6379

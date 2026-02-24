@@ -107,6 +107,9 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        //配置好静态资源路径（有改动的地方）
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("file:D:/Desktop/github/sky-take-out/sky-server/src/main/resources/image/");
     }
 
     //扩展Spring MVC框架的消息转换器

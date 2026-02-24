@@ -7,12 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * #author 龚圆康
- * #class 软件2144
- * #student_number 21040147
- * 自定义注解
- */
+
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
