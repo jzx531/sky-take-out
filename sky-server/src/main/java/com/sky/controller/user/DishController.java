@@ -54,7 +54,7 @@ public class DishController {
 
         list = dishService.listWithFlavor(dish);
 
-//        放入redis
+//        将当前查询结果放入redis
         redisTemplate.opsForValue().set(key, list);
         return Result.success(list);
     }
