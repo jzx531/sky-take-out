@@ -6,6 +6,7 @@ import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,7 +26,7 @@ public interface OrderMapper {
      * @param userId
      * @return
      */
-    Orders getByNumberAndUserId(@Param("orderNum")String orderNumber, @Param("userId")Long userId);
+    Orders getByNumberAndUserId(@Param("orderNumber")String orderNumber, @Param("userId")Long userId);
 
     /**
      * 修改订单信息
@@ -59,7 +60,7 @@ public interface OrderMapper {
      * @param status
      * @param OrderTime
      */
-    List<Orders> getByStatusAndOrderTime(@Param("status")Integer status, @Param("startTime")LocalDateTime OrderTime);
+    List<Orders> getByStatusAndOrderTime(@Param("status")Integer status, @Param("orderTime")LocalDateTime OrderTime);
 
     /**
      * 根据动态条件统计营业额
@@ -81,4 +82,14 @@ public interface OrderMapper {
      * @param end
      */
     List<GoodsSalesDTO> getSalesTop10(LocalDateTime begin, LocalDateTime end);
+
+    /**
+     * 用于替换微信支付更新数据库状态的问题
+     * @param orderStatus
+     * @param orderPaidStatus
+     */
+    @Update("update orders set status = #{orderStatus},pay_status = #{orderPaidStatus} ,checkout_time = #{check_out_time} " +
+            "where number = #{orderNumber}")
+    void updateStatus(Integer orderStatus, Integer orderPaidStatus, LocalDateTime check_out_time, String orderNumber);
+
 }
