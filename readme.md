@@ -9,6 +9,17 @@
 任务：搭建开发环境（JDK, Maven, Git, IDEA），导入前后端代码骨架，配置数据库，实现后端与数据库的连接，完成第一个接口测试（如Swagger集成）。
 重点：理解分层架构（Controller, Service, Mapper），熟悉Git协作流程。
 
+IDEA创建maven项目：创建主项目后,删除主项目中的其他文件，保留pom,之后创建maven子模块，模块中的pom声明为主项目pom的子模块
+子模块间可以互相依赖
+
+```
+    <modules>
+        <module>sky-common</module>
+        <module>sky-server</module>
+        <module>sky-pojo</module>
+    </modules>
+```
+
 ### Day 2：员工管理与分类管理
 内容：实现后台管理系统的核心基础模块。
 任务：
